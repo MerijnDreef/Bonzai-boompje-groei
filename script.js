@@ -1,9 +1,8 @@
 var leafsAmount = document.getElementById("leafs");
 var daysAmount = document.getElementById("days");
-var calculate = document.getElementById("calculate").onclick = calcDays(leafsAmount, daysAmount);
+var calculate = document.getElementById("calculate")
 
-// calculate.onclick = calcDays(leafsAmount, daysAmount);
-calculate.onclick = console.log("ik hoor gedrukt te worden");
+calculate.onclick = function(){calcDays(leafsAmount, daysAmount);};
 
 function calcDays(leafsCount, daysCount) {
    var bonzaiSize = leafsCount + (leafsCount / 100 * 4);
