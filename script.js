@@ -13,8 +13,9 @@ function calcDays() {
    var cutCount = 0;
    console.log(daysCount);
    var initialAmount = 1 * leafsAmount.value;
+   initialAmount = Math.floor(initialAmount);
    var addUp = leafsAmount.value / 100 * 4;
-   // console.log(initialAmount);
+   console.log(initialAmount);
    // console.log(addUp);
    var bonzaiSize = initialAmount += addUp;
    console.log("pre vibe check");
@@ -36,7 +37,7 @@ function calcDays() {
       addUp = initialAmount / 100 * 4;
       console.log(initialAmount);
       console.log(addUp);
-      console.log(Counter);
+      // console.log(Counter);
    }
    // daysAmount = 0;
    console.log("the end");
