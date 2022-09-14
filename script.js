@@ -7,7 +7,6 @@ var daysLabel = document.getElementById("daysLabel");
 var resultTotal = document.getElementsByClassName("result");
 
 calculate.setAttribute('onclick', 'calcDays()');
-// calculate.onclick = function(){calcDays(leafsAmount, daysAmount);};
 daysAmount.setAttribute('onchange', 'daysCount()');
 
 function daysCount() {
@@ -26,21 +25,18 @@ function calcDays() {
 
    for (var i = 0; i < daysCount; i++) {
       console.log("post vibe check");
-      console.log(initialAmount);
       if (addUp >= 200) {
-         addUp = addUp - addUp / 100 * 8;
-         console.log(addUp);
-         console.log("cutCount done")
          cutCount = addUp / 100 * 8;
-         console.log(cutCount);
+         console.log("cutCount done");
+
+         addUp = addUp - addUp / 100 * 8;
 
          console.log("You have failed the vibe check");
       }
-      console.log(addUp);
       addUp = Math.ceil(addUp);
-      console.log(addUp);
+      cutCount = Math.round(cutCount);
       bonzaiSize = initialAmount += addUp;
-      
+
       var div = document.createElement('div');
       var day = document.createElement('h3');
       var totalAmount = document.createElement('p');
@@ -65,8 +61,6 @@ function calcDays() {
       initialAmount = bonzaiSize;
       addUp = initialAmount / 100 * 4;
       daysCurrent++;
-      console.log(initialAmount);
-      console.log(addUp);
    }
    console.log("the end");
 }
