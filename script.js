@@ -8,6 +8,7 @@ var resultTotal = document.getElementsByClassName("result");
 
 calculate.setAttribute('onclick', 'calcDays()');
 daysAmount.setAttribute('onchange', 'daysCount()');
+calculate.style.marginTop = "10px";
 
 function daysCount() {
    daysLabel.innerText = "Dagen " + "(" + daysAmount.value + ")";
