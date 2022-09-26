@@ -19,13 +19,15 @@ function calcDays() {
    var daysCount = daysAmount.value * 1;
    var cutCount = 0;
    var initialAmount = 1 * leafsAmount.value;
-   initialAmount = Math.floor(initialAmount);
+   initialAmount = Math.ceil(initialAmount);
    var addUp = leafsAmount.value / 100 * 4;
    var bonzaiSize = 0;
    console.log("pre vibe check");
 
    for (var i = 0; i < daysCount; i++) {
       console.log("post vibe check");
+      var growthResult = addUp;
+
       if (addUp >= 200) {
          cutCount = addUp / 100 * 8;
          console.log("cutCount done");
@@ -35,7 +37,8 @@ function calcDays() {
          console.log("You have failed the vibe check");
       }
       addUp = Math.ceil(addUp);
-      cutCount = Math.round(cutCount);
+      cutCount = Math.ceil(cutCount);
+      growthResult = Math.ceil(growthResult);
       bonzaiSize = initialAmount += addUp;
 
       var div = document.createElement('div');
@@ -46,7 +49,7 @@ function calcDays() {
 
       day.innerText = "Dag " + daysCurrent;
       totalAmount.innerText = "Totaal aantal blaadjes: " + bonzaiSize;
-      totalGrow.innerText = "Totaal aantal gegroeid: " + addUp;
+      totalGrow.innerText = "Totaal aantal gegroeid: " + growthResult;
       totalCut.innerText = "Totaal aantal geknipt: " + cutCount
 
       div.style.border = "black solid 3px";
