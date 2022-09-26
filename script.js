@@ -5,10 +5,23 @@ var growthTotal = document.getElementById("growth");
 var cutTotal = document.getElementById("cut");
 var daysLabel = document.getElementById("daysLabel");
 var resultTotal = document.getElementsByClassName("result");
+var pokonCheckbox = document.getElementById("pokonCheckbox");
+var pokonDiv = document.getElementById("pokonInputZone");
+var pokonInput = document.getElementById("pokonInput");
 
 calculate.setAttribute('onclick', 'calcDays()');
 daysAmount.setAttribute('onchange', 'daysCount()');
+pokonCheckbox.setAttribute('onchange', 'pokonInputVisibility()');
 calculate.style.marginTop = "10px";
+pokonDiv.style.display = "none";
+
+function pokonInputVisibility() {
+   if (pokonDiv.style.display == "none") {
+      pokonDiv.style.display = "block";
+   } else {
+      pokonDiv.style.display = "none";
+   }
+}
 
 function daysCount() {
    daysLabel.innerText = "Dagen " + "(" + daysAmount.value + ")";
