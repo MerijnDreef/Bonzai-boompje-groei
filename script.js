@@ -30,8 +30,9 @@ function daysCount() {
 function calcDays() {
    // console.log(resultTotal);
    // console.log(resultTotal[0].childElementCount);
-   if (resultTotal[0].childElementCount >= 1) {
-      while (resultTotal[0].childElementCount > 0) {
+   if (resultTotal[0].children.length >= 1) {
+      while (resultTotal[0].children.length > 0) {
+         console.log(resultTotal[0].children.length);
          resultTotal[0].firstChild.remove();
       }
    }
