@@ -28,6 +28,14 @@ function daysCount() {
 }
 
 function calcDays() {
+   // console.log(resultTotal);
+   // console.log(resultTotal[0].childElementCount);
+   if (resultTotal[0].childElementCount >= 1) {
+      while (resultTotal[0].childElementCount > 0) {
+         resultTotal[0].firstChild.remove();
+      }
+   }
+   console.log("still doing the thing");
    var daysCurrent = 1;
    var daysCount = daysAmount.value * 1;
    var cutCount = 0;
