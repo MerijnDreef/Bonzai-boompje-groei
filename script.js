@@ -28,22 +28,27 @@ function daysCount() {
 }
 
 function calcDays() {
-   // console.log(resultTotal);
-   // console.log(resultTotal[0].childElementCount);
    if (resultTotal[0].children.length >= 1) {
       while (resultTotal[0].children.length > 0) {
          console.log(resultTotal[0].children.length);
          resultTotal[0].firstChild.remove();
       }
    }
-   console.log("still doing the thing");
+   var pokonTotal = pokonInput.value;
+   pokonTotal = pokonTotal * 1;
    var daysCurrent = 1;
    var daysCount = daysAmount.value * 1;
    var cutCount = 0;
    var initialAmount = 1 * leafsAmount.value;
    initialAmount = Math.ceil(initialAmount);
-   var addUp = leafsAmount.value / 100 * 4;
    var bonzaiSize = 0;
+   if (pokonCheckbox.checked == true && pokonTotal >= 0.3) {
+      var addUp = leafsAmount.value / 100 * 6;
+      pokonTotal = pokonTotal - 0.3;
+   } else {
+      var addUp = leafsAmount.value / 100 * 4;
+   }
+
    console.log("pre vibe check");
 
    for (var i = 0; i < daysCount; i++) {
@@ -85,7 +90,13 @@ function calcDays() {
       resultTotal[0].appendChild(div);
 
       initialAmount = bonzaiSize;
-      addUp = initialAmount / 100 * 4;
+      if (pokonCheckbox.checked == true && pokonTotal >= 0.3) {
+         addUp = initialAmount / 100 * 6;
+         pokonTotal = pokonTotal - 0.3;
+      } else {
+         addUp = initialAmount / 100 * 4;
+      }
+
       daysCurrent++;
    }
    console.log("the end");
