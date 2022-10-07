@@ -16,6 +16,9 @@ pokonCheckbox.setAttribute('onchange', 'pokonInputVisibility()');
 calculate.style.marginTop = "10px";
 pokonDiv.style.display = "none";
 
+/*
+for showing and hiding the pokon input
+*/
 function pokonInputVisibility() {
    if (pokonDiv.style.display == "none") {
       pokonDiv.style.display = "block";
@@ -24,10 +27,16 @@ function pokonInputVisibility() {
    }
 }
 
+/*
+for displaying the days at the slider
+*/
 function daysCount() {
    daysLabel.innerText = "Dagen " + "(" + daysAmount.value + ")";
 }
 
+/*
+to start the calculation when the button "Calculate" has been pressed
+*/
 function calcDays() {
    if (resultTotal[0].children.length >= 1) {
       while (resultTotal[0].children.length > 0) {
@@ -49,6 +58,11 @@ function calcDays() {
    var waterPokonTotal = pokonTotal;
    var waterInitialAmount = initialAmount;
 
+   /*
+   checks if there is pokon available 
+   when pokon is available it increases growth
+   if not available it will grow with normal amounts
+   */
    if (pokonCheckbox.checked == true && pokonTotal >= 0.3) {
       var addUp = leafsAmount.value / 100 * 6;
       pokonTotal = pokonTotal - 0.3;
@@ -56,9 +70,16 @@ function calcDays() {
       var addUp = leafsAmount.value / 100 * 4;
    }
 
+   /*
+   starts the loop when more than 1 day is selected 
+   */
    for (var i = 0; i < daysCount; i++) {
       var growthResult = addUp;
 
+      /*
+      will check if the growth is bigger than 200
+      if it is bigger than 200 it will cut 8% of the growth
+      */
       if (addUp >= 200) {
          cutCount = addUp / 100 * 8;
          addUp = addUp - cutCount;
@@ -69,6 +90,11 @@ function calcDays() {
       growthResult = Math.ceil(growthResult);
       initialAmount = initialAmount + addUp;
 
+      /*
+      it will check if active watering (when the checkbox isn't checked) or passive watering (when the checkbox is checked)
+      passive watering will note down a large amount of water on the first day of the week and will wait until the start of the next week
+      active watering will note down the amount of water per day
+      */
       if (waterCheckbox.checked == true && passiveWaterCounter == 1) {
 
          for (var y = 0; y < 7; y++) {
@@ -121,6 +147,9 @@ function calcDays() {
       div.appendChild(totalWater);
       resultTotal[0].appendChild(div);
 
+      /*
+      this is to keep the pokon loop going until
+      */
       if (pokonCheckbox.checked == true && pokonTotal >= 0.3) {
          addUp = initialAmount / 100 * 6;
          pokonTotal = pokonTotal - 0.3;
@@ -130,6 +159,9 @@ function calcDays() {
 
       daysCurrent++;
 
+      /*
+      will count if the week is over or not
+      */
       if (passiveWaterCounter == 7) {
          passiveWaterCounter = 1;
          waterTotal = 0;
