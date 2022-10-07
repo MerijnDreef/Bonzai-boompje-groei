@@ -43,9 +43,10 @@ function calcDays() {
    var cutCount = 0;
    var initialAmount = 1 * leafsAmount.value;
    initialAmount = Math.ceil(initialAmount);
-   var bonzaiSize = 0;
    var passiveWaterCounter = 1;
    var waterResult = 0;
+   var waterTotal = 0;
+   var waterAddUp = 0;
 
    if (pokonCheckbox.checked == true && pokonTotal >= 0.3) {
       var addUp = leafsAmount.value / 100 * 6;
@@ -72,14 +73,35 @@ function calcDays() {
       addUp = Math.ceil(addUp);
       cutCount = Math.ceil(cutCount);
       growthResult = Math.ceil(growthResult);
-      bonzaiSize = initialAmount += addUp;
+      initialAmount = initialAmount += addUp;
 
       if (waterCheckbox.checked == true && passiveWaterCounter == 1) {
          console.log("passive watering");
-         waterResult = 7;
+         // waterResult = 7;
+         var waterPokonTotal = pokonTotal;
+         var waterInitialAmount = initialAmount;
+
+         for (var y = 0; y < 7; y++) {
+            if (pokonCheckbox.checked == true && waterPokonTotal != 0.3) {
+               // grab initial amount and add up each time it is true
+               waterAddUp = waterInitialAmount / 100 * 6;
+               waterPokonTotal = waterPokonTotal - 0.3;
+            } else {
+               // normal amount add up
+               waterAddUp = waterInitialAmount / 100 * 4;
+            }
+            waterInitialAmount = waterInitialAmount + waterAddUp;
+            // waterTotal = waterInitialAmount * 0.005;
+            waterTotal = waterTotal + waterInitialAmount * 0.005;
+            console.log(waterTotal + " ML");
+
+         }
+         waterResult = waterTotal;
+         console.log(waterTotal + " ML");
       } else if (waterCheckbox.checked == false) {
          console.log("active watering");
-         waterResult = 1;
+         // waterResult = 1;
+         waterResult = initialAmount * 0.005;
       } else {
          waterResult = 0;
       }
@@ -92,7 +114,7 @@ function calcDays() {
       var totalWater = document.createElement('p');
 
       day.innerText = "Dag " + daysCurrent;
-      totalAmount.innerText = "Totaal aantal blaadjes: " + bonzaiSize;
+      totalAmount.innerText = "Totaal aantal blaadjes: " + initialAmount;
       totalGrow.innerText = "Totaal aantal gegroeid: " + growthResult;
       totalCut.innerText = "Totaal aantal geknipt: " + cutCount;
       totalWater.innerText = "Te wateren: " + waterResult + " Ml";
@@ -107,8 +129,6 @@ function calcDays() {
       div.appendChild(totalCut);
       div.appendChild(totalWater);
       resultTotal[0].appendChild(div);
-
-      initialAmount = bonzaiSize;
 
       if (pokonCheckbox.checked == true && pokonTotal >= 0.3) {
          addUp = initialAmount / 100 * 6;
