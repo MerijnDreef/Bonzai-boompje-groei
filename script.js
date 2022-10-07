@@ -8,6 +8,7 @@ var resultTotal = document.getElementsByClassName("result");
 var pokonCheckbox = document.getElementById("pokonCheckbox");
 var pokonDiv = document.getElementById("pokonInputZone");
 var pokonInput = document.getElementById("pokonInput");
+var waterCheckbox = document.getElementById("water");
 
 calculate.setAttribute('onclick', 'calcDays()');
 daysAmount.setAttribute('onchange', 'daysCount()');
@@ -34,6 +35,7 @@ function calcDays() {
          resultTotal[0].firstChild.remove();
       }
    }
+
    var pokonTotal = pokonInput.value;
    pokonTotal = pokonTotal * 1;
    var daysCurrent = 1;
@@ -42,6 +44,9 @@ function calcDays() {
    var initialAmount = 1 * leafsAmount.value;
    initialAmount = Math.ceil(initialAmount);
    var bonzaiSize = 0;
+   var passiveWaterCounter = 1;
+   var waterResult = 0;
+
    if (pokonCheckbox.checked == true && pokonTotal >= 0.3) {
       var addUp = leafsAmount.value / 100 * 6;
       pokonTotal = pokonTotal - 0.3;
@@ -63,21 +68,34 @@ function calcDays() {
 
          console.log("You have failed the vibe check");
       }
+
       addUp = Math.ceil(addUp);
       cutCount = Math.ceil(cutCount);
       growthResult = Math.ceil(growthResult);
       bonzaiSize = initialAmount += addUp;
+
+      if (waterCheckbox.checked == true && passiveWaterCounter == 1) {
+         console.log("passive watering");
+         waterResult = 7;
+      } else if (waterCheckbox.checked == false) {
+         console.log("active watering");
+         waterResult = 1;
+      } else {
+         waterResult = 0;
+      }
 
       var div = document.createElement('div');
       var day = document.createElement('h3');
       var totalAmount = document.createElement('p');
       var totalGrow = document.createElement('p');
       var totalCut = document.createElement('p');
+      var totalWater = document.createElement('p');
 
       day.innerText = "Dag " + daysCurrent;
       totalAmount.innerText = "Totaal aantal blaadjes: " + bonzaiSize;
       totalGrow.innerText = "Totaal aantal gegroeid: " + growthResult;
-      totalCut.innerText = "Totaal aantal geknipt: " + cutCount
+      totalCut.innerText = "Totaal aantal geknipt: " + cutCount;
+      totalWater.innerText = "Te wateren: " + waterResult + " Ml";
 
       div.style.border = "black solid 3px";
       div.style.marginBottom = "10px";
@@ -87,9 +105,11 @@ function calcDays() {
       div.appendChild(totalAmount);
       div.appendChild(totalGrow);
       div.appendChild(totalCut);
+      div.appendChild(totalWater);
       resultTotal[0].appendChild(div);
 
       initialAmount = bonzaiSize;
+
       if (pokonCheckbox.checked == true && pokonTotal >= 0.3) {
          addUp = initialAmount / 100 * 6;
          pokonTotal = pokonTotal - 0.3;
@@ -98,6 +118,11 @@ function calcDays() {
       }
 
       daysCurrent++;
+      if (passiveWaterCounter == 7) {
+         passiveWaterCounter = 1;
+      } else {
+         passiveWaterCounter++;
+      }
    }
    console.log("the end");
 }
