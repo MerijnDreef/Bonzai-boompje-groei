@@ -31,7 +31,6 @@ function daysCount() {
 function calcDays() {
    if (resultTotal[0].children.length >= 1) {
       while (resultTotal[0].children.length > 0) {
-         console.log(resultTotal[0].children.length);
          resultTotal[0].firstChild.remove();
       }
    }
@@ -47,6 +46,8 @@ function calcDays() {
    var waterResult = 0;
    var waterTotal = 0;
    var waterAddUp = 0;
+   var waterPokonTotal = pokonTotal;
+   var waterInitialAmount = initialAmount;
 
    if (pokonCheckbox.checked == true && pokonTotal >= 0.3) {
       var addUp = leafsAmount.value / 100 * 6;
@@ -55,53 +56,43 @@ function calcDays() {
       var addUp = leafsAmount.value / 100 * 4;
    }
 
-   console.log("pre vibe check");
-
    for (var i = 0; i < daysCount; i++) {
-      console.log("post vibe check");
       var growthResult = addUp;
 
       if (addUp >= 200) {
          cutCount = addUp / 100 * 8;
-         console.log("cutCount done");
-
-         addUp = addUp - addUp / 100 * 8;
-
-         console.log("You have failed the vibe check");
+         addUp = addUp - cutCount;
       }
 
       addUp = Math.ceil(addUp);
       cutCount = Math.ceil(cutCount);
       growthResult = Math.ceil(growthResult);
-      initialAmount = initialAmount += addUp;
+      initialAmount = initialAmount + addUp;
 
       if (waterCheckbox.checked == true && passiveWaterCounter == 1) {
-         console.log("passive watering");
-         // waterResult = 7;
-         var waterPokonTotal = pokonTotal;
-         var waterInitialAmount = initialAmount;
 
          for (var y = 0; y < 7; y++) {
             if (pokonCheckbox.checked == true && waterPokonTotal != 0.3) {
-               // grab initial amount and add up each time it is true
                waterAddUp = waterInitialAmount / 100 * 6;
                waterPokonTotal = waterPokonTotal - 0.3;
             } else {
-               // normal amount add up
                waterAddUp = waterInitialAmount / 100 * 4;
             }
-            waterInitialAmount = waterInitialAmount + waterAddUp;
-            // waterTotal = waterInitialAmount * 0.005;
-            waterTotal = waterTotal + waterInitialAmount * 0.005;
-            console.log(waterTotal + " ML");
 
+            if (waterAddUp >= 200) {
+               waterAddUp = waterAddUp - waterAddUp / 100 * 8;
+            }
+
+            waterAddUp = Math.ceil(waterAddUp);
+            waterInitialAmount = waterInitialAmount + waterAddUp;
+            waterTotal = waterInitialAmount * 0.005 + waterTotal;
          }
+
          waterResult = waterTotal;
-         console.log(waterTotal + " ML");
+
       } else if (waterCheckbox.checked == false) {
-         console.log("active watering");
-         // waterResult = 1;
          waterResult = initialAmount * 0.005;
+
       } else {
          waterResult = 0;
       }
@@ -138,11 +129,12 @@ function calcDays() {
       }
 
       daysCurrent++;
+
       if (passiveWaterCounter == 7) {
          passiveWaterCounter = 1;
+         waterTotal = 0;
       } else {
          passiveWaterCounter++;
       }
    }
-   console.log("the end");
 }
