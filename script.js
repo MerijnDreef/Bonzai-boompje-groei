@@ -51,6 +51,7 @@ function calcDays() {
 
    var pokonTotal = pokonInput.value;
    pokonTotal = pokonTotal * 1;
+   var usedPokon = 0;
    var daysCurrent = 1;
    var daysCount = daysAmount.value * 1;
    var cutCount = 0;
@@ -71,8 +72,11 @@ function calcDays() {
    if (pokonCheckbox.checked == true && pokonTotal >= 0.3) {
       var addUp = leafsAmount.value / 100 * 6;
       pokonTotal = pokonTotal - 0.3;
+      usedPokon = 0.3;
+
    } else {
       var addUp = leafsAmount.value / 100 * 4;
+      usedPokon = 0;
    }
 
    /*
@@ -128,18 +132,32 @@ function calcDays() {
          waterResult = 0;
       }
 
+      waterResult = waterResult.toFixed(2);
+      // pokonTotal = pokonTotal.toFixed(2);
+      if(pokonTotal.toFixed(2)) {
+         console.log(pokonTotal.toFixed(2) + "  I work on the if");
+         pokonTotal = pokonTotal.toFixed(2);
+      } else {
+         console.log(pokonTotal.toFixed(2) + "  I work on the else");
+      }
+
       var div = document.createElement('div');
       var day = document.createElement('h3');
       var totalAmount = document.createElement('p');
       var totalGrow = document.createElement('p');
       var totalCut = document.createElement('p');
       var totalWater = document.createElement('p');
+      var pokonUse = document.createElement('p');
+      var pokonAmountTotal = document.createElement('p');
 
       day.innerText = "Dag " + daysCurrent;
       totalAmount.innerText = "Totaal aantal blaadjes: " + initialAmount;
       totalGrow.innerText = "Totaal aantal gegroeid: " + growthResult;
       totalCut.innerText = "Totaal aantal geknipt: " + cutCount;
       totalWater.innerText = "Te wateren: " + waterResult + " Ml";
+      pokonUse.innerText = "Gebruikte pokon " + usedPokon + " Gram";
+      pokonAmountTotal.innerText = "Totaal aantal pokon over " + pokonTotal + " Gram";
+
 
       div.style.border = "black solid 3px";
       div.style.marginBottom = "10px";
@@ -150,6 +168,8 @@ function calcDays() {
       div.appendChild(totalGrow);
       div.appendChild(totalCut);
       div.appendChild(totalWater);
+      div.appendChild(pokonUse);
+      div.appendChild(pokonAmountTotal);
       resultTotal[0].appendChild(div);
 
       /*
@@ -158,8 +178,11 @@ function calcDays() {
       if (pokonCheckbox.checked == true && pokonTotal >= 0.3) {
          addUp = initialAmount / 100 * 6;
          pokonTotal = pokonTotal - 0.3;
+
+         usedPokon = 0.3;
       } else {
          addUp = initialAmount / 100 * 4;
+         usedPokon = 0;
       }
 
       daysCurrent++;
