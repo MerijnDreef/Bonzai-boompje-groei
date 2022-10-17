@@ -16,10 +16,10 @@ pokonCheckbox.setAttribute('onchange', 'pokonInputVisibility()');
 calculate.style.marginTop = "10px";
 pokonDiv.style.display = "none";
 
-leafsAmount.addEventListener("keydown", function (e) {
-   if (!/^([0-9]*)$/gm.test(e.key))
-      e.preventDefault();
-});
+// leafsAmount.addEventListener("keydown", function (e) {
+//    if (!/^([0-9]*)$/gm.test(e.key))
+//       e.preventDefault();
+// });
 
 /*
 for showing and hiding the pokon input
