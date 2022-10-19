@@ -133,13 +133,22 @@ function calcDays() {
       }
 
       waterResult = waterResult.toFixed(2);
-      // pokonTotal = pokonTotal.toFixed(2);
-      if(pokonTotal.toFixed(2)) {
-         console.log(pokonTotal.toFixed(2) + "  I work on the if");
-         pokonTotal = pokonTotal.toFixed(2);
-      } else {
-         console.log(pokonTotal.toFixed(2) + "  I work on the else");
+
+      /*
+      This converts the pokonTotal to a string so I can see if it has a "." in it
+      after that I split it so I can see what is behind the "." and I take the length from that so I can see how long it is
+      and for the last part I check if it is longer than 2 if it is. It will do the toFixed function and fix the issue otherwise it will ignore it
+      */
+      var pokonString = String(pokonTotal);
+
+      if (pokonString.includes('.')) {
+         pokonDecimal = pokonString.split('.')[1].length;
       }
+
+      if (pokonDecimal > 2) {
+         pokonTotal = pokonTotal.toFixed(2);
+      }
+
 
       var div = document.createElement('div');
       var day = document.createElement('h3');
@@ -155,8 +164,8 @@ function calcDays() {
       totalGrow.innerText = "Totaal aantal gegroeid: " + growthResult;
       totalCut.innerText = "Totaal aantal geknipt: " + cutCount;
       totalWater.innerText = "Te wateren: " + waterResult + " Ml";
-      pokonUse.innerText = "Gebruikte pokon " + usedPokon + " Gram";
-      pokonAmountTotal.innerText = "Totaal aantal pokon over " + pokonTotal + " Gram";
+      pokonUse.innerText = "Gebruikte pokon: " + usedPokon + " Gram";
+      pokonAmountTotal.innerText = "Totaal aantal pokon over: " + pokonTotal + " Gram";
 
 
       div.style.border = "black solid 3px";
