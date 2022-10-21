@@ -55,12 +55,14 @@ function calcDays() {
    var daysCurrent = 1;
    var daysCount = daysAmount.value * 1;
    var cutCount = 0;
-   var initialAmount = 1 * leafsAmount.value;
-   initialAmount = Math.ceil(initialAmount);
+   // var initialAmount = 1 * leafsAmount.value;
+   // initialAmount = Math.ceil(initialAmount);
+   var initialAmount = Math.ceil(leafsAmount.value);
    var passiveWaterCounter = 1;
    var waterResult = 0;
    var waterTotal = 0;
    var waterAddUp = 0;
+   // var waterResult = waterTotal = waterAddUp = 0;
    var waterPokonTotal = pokonTotal;
    var waterInitialAmount = initialAmount;
 
@@ -107,8 +109,10 @@ function calcDays() {
       if (waterCheckbox.checked == true && passiveWaterCounter == 1) {
 
          for (var y = 0; y < 7; y++) {
-            if (pokonCheckbox.checked == true && waterPokonTotal != 0.3) {
+            if (pokonCheckbox.checked == true && waterPokonTotal >= 0.3) {
                waterAddUp = waterInitialAmount / 100 * 6;
+               // console.log(waterInitialAmount / 100 * 6);
+               // console.log(waterInitialAmount / (100 * 6));
                waterPokonTotal = waterPokonTotal - 0.3;
             } else {
                waterAddUp = waterInitialAmount / 100 * 4;
@@ -142,7 +146,7 @@ function calcDays() {
       var pokonString = String(pokonTotal);
 
       if (pokonString.includes('.')) {
-         pokonDecimal = pokonString.split('.')[1].length;
+         var pokonDecimal = pokonString.split('.')[1].length;
       }
 
       if (pokonDecimal > 2) {
